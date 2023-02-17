@@ -48,6 +48,12 @@
          </dependency>
          <dependency>
              <groupId>com.pblgllgs</groupId>
+             <artifactId>amqp</artifactId>
+             <version>0.0.1-SNAPSHOT</version>
+             <scope>compile</scope>
+         </dependency>
+         <dependency>
+             <groupId>com.pblgllgs</groupId>
              <artifactId>clients</artifactId>
              <version>0.0.1-SNAPSHOT</version>
              <scope>compile</scope>
