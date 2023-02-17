@@ -1,0 +1,95 @@
+services:
+  postgres-customer:
+    container_name: postgres_customer
+    image: postgres:15.1
+    environment:
+      POSTGRES_USER: pblgllgs
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: customer
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres_customer_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  postgres-fraud:
+    container_name: postgres_fraud
+    image: postgres:15.1
+    environment:
+      POSTGRES_USER: pblgllgs
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: fraud
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres_fraud_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  postgres-notification:
+    container_name: postgres_notification
+    image: postgres:15.1
+    environment:
+      POSTGRES_USER: pblgllgs
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: notification
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres_notification_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+
+#    networks:
+#      - spring
+#  rabbitmq:
+#    image: rabbitmq:3.9.11-management-alpine
+#    container_name: rabbitmq
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    networks:
+#      - spring
+
+networks:
+  postgres:
+    driver: bridge
+#  spring:
+#    driver: bridge
+
+volumes:
+  postgres_fraud_data:
+    external: false
+  postgres_customer_data:
+    external: false
+  postgres_notification_data:
+    external: false
+  pgadmin:
