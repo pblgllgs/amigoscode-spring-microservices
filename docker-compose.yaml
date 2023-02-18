@@ -74,6 +74,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    volumes:
+      - home_dir_rabbitmq:/var/lib/rabbitmq
 
 networks:
   postgres:
@@ -85,5 +87,7 @@ volumes:
   postgres_customer_data:
     external: false
   postgres_notification_data:
+    external: false
+  home_dir_rabbitmq:
     external: false
   pgadmin:

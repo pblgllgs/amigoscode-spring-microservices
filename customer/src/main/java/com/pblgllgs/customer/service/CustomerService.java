@@ -3,19 +3,16 @@ package com.pblgllgs.customer.service;
 import com.pblgllgs.amqp.RabbitMQMessageProducer;
 import com.pblgllgs.clients.fraud.FraudCheckResponse;
 import com.pblgllgs.clients.fraud.FraudClient;
-import com.pblgllgs.clients.notification.NotificationClient;
 import com.pblgllgs.clients.notification.NotificationRequest;
 import com.pblgllgs.customer.model.Customer;
 import com.pblgllgs.customer.model.CustomerRegistrationRequest;
 import com.pblgllgs.customer.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 @AllArgsConstructor
 public class CustomerService {
-
     private final CustomerRepository customerRepository;
 
     private final FraudClient fraudClient;
