@@ -1,5 +1,18 @@
 # Microservices Spring
 
+- Spring boot 2.5.6
+- Spring Data JPA
+- Spring Cloud OpenFeign
+- Spring Cloud Gateway
+- Spring Cloud Sleuth
+- Zipkin
+- Netflix Eureka Server
+- Rabbitmq
+- Postgres
+- Jib maven plugin
+- Docker compose
+- k8s
+
 ## Run microservices
 
 ```$bash
@@ -24,7 +37,7 @@ mvn clean package -P build-docker-image
 
 ## Deploy postgres database and create dbs
 
-### Deploy StatefulSet
+### Deploy Resources
 
 ```$bash
 kubectl apply -f k8s/minikube/bootstrap/postgres
