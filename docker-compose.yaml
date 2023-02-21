@@ -1,55 +1,14 @@
 services:
-  postgres-customer:
-    container_name: postgres-customer
+  postgres:
+    container_name: postgres
     image: postgres:15.1
     environment:
       POSTGRES_USER: pblgllgs
       POSTGRES_PASSWORD: example
-      POSTGRES_DB: customer
     volumes:
-      - postgres_customer_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    expose:
-      - "5432"
-    networks:
-      - postgres
-    restart: unless-stopped
-
-  postgres-fraud:
-    container_name: postgres-fraud
-    image: postgres:15.1
-    environment:
-      POSTGRES_USER: pblgllgs
-      POSTGRES_PASSWORD: example
-      POSTGRES_DB: fraud
-    volumes:
-      - postgres_fraud_data:/var/lib/postgresql/data
-    expose:
-      - "5433"
-    ports:
-      - "5433:5432"
-    command:
-      -p 5433
-    networks:
-      - postgres
-    restart: unless-stopped
-
-  postgres-notification:
-    container_name: postgres-notification
-    image: postgres:15.1
-    environment:
-      POSTGRES_USER: pblgllgs
-      POSTGRES_PASSWORD: example
-      POSTGRES_DB: notification
-    volumes:
-      - postgres_notification_data:/var/lib/postgresql/data
-    expose:
-      - "5434"
-    ports:
-      - "5434:5432"
-    command:
-      -p 5434
     networks:
       - postgres
     restart: unless-stopped
@@ -89,7 +48,7 @@ services:
       - spring
 
   eureka-server:
-    image: pblgllgs/eureka-server:latest
+    image: pblgllgs/eureka-server-kube:latest
     container_name: eureka-server
     ports:
       - "8761:8761"
@@ -101,7 +60,7 @@ services:
       - spring
 
   apigw:
-    image: pblgllgs/apigw:latest
+    image: pblgllgs/apigw-kube:latest
     container_name: apigw
     ports:
       - "8083:8083"
@@ -114,7 +73,7 @@ services:
       - spring
 
   customer:
-    image: pblgllgs/customer:latest
+    image: pblgllgs/customer-kube:latest
     container_name: customer
     ports:
       - "8080:8080"
@@ -126,11 +85,11 @@ services:
     depends_on:
       - zipkin
       - eureka-server
-      - postgres-customer
+      - postgres
       - rabbitmq
 
   fraud:
-    image: pblgllgs/fraud:latest
+    image: pblgllgs/fraud-kube:latest
     container_name: fraud
     ports:
       - "8081:8081"
@@ -142,11 +101,11 @@ services:
     depends_on:
       - zipkin
       - eureka-server
-      - postgres-fraud
+      - postgres
       - rabbitmq
 
   notification:
-    image: pblgllgs/notification:latest
+    image: pblgllgs/notification-kube:latest
     container_name: notification
     ports:
       - "8082:8082"
@@ -158,7 +117,7 @@ services:
     depends_on:
       - zipkin
       - eureka-server
-      - postgres-notification
+      - postgres
       - rabbitmq
 
 networks:
@@ -168,11 +127,7 @@ networks:
     driver: bridge
 
 volumes:
-  postgres_fraud_data:
-    external: false
-  postgres_customer_data:
-    external: false
-  postgres_notification_data:
+  postgres_data:
     external: false
   home_dir_rabbitmq:
     external: false
