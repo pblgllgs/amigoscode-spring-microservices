@@ -18,10 +18,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-pc-volume
+  name: postgres-pc-volume-claim
 spec:
   storageClassName: manual
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
   resources:
