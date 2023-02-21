@@ -4,9 +4,9 @@ spring:
     application:
         name: notification
     datasource:
-        password: 'example'
-        url: jdbc:postgresql://postgres:5432/notification
         username: 'pblgllgs'
+        url: jdbc:postgresql://postgres:5432/notification
+        password: 'example'
     jpa:
         hibernate:
             ddl-auto: create-drop

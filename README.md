@@ -30,6 +30,10 @@ mvn clean package -P build-docker-image
 kubectl apply -f k8s/minikube/bootstrap/postgres
 kubectl apply -f k8s/minikube/bootstrap/rabbitmq
 kubectl apply -f k8s/minikube/bootstrap/zipkin
+
+kubectl apply -f k8s/minikube/services/customer
+kubectl apply -f k8s/minikube/services/notification
+kubectl apply -f k8s/minikube/services/fraud
 ```
 
 ### Delete Resources
@@ -38,6 +42,10 @@ kubectl apply -f k8s/minikube/bootstrap/zipkin
 kubectl delete -f k8s/minikube/bootstrap/postgres
 kubectl delete -f k8s/minikube/bootstrap/rabbitmq
 kubectl delete -f k8s/minikube/bootstrap/zipkin
+
+kubectl delete -f k8s/minikube/services/customer
+kubectl delete -f k8s/minikube/services/notification
+kubectl delete -f k8s/minikube/services/fraud
 ```
 
 ### Create dbs

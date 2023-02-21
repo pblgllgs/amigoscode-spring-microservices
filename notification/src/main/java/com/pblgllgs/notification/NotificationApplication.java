@@ -16,7 +16,6 @@ import org.springframework.context.annotation.PropertySources;
                 "com.pblgllgs.amqp",
         }
 )
-@EnableEurekaClient
 @PropertySources({
         @PropertySource("classpath:clients-${spring.profiles.active}.properties")
 })
